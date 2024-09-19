@@ -38,7 +38,7 @@ const Navigation = () => {
     router.push(href);
     setIsOpen(false);
   };
-  console.log(isMobile);
+  console.log({ isMobile });
   if (isMobile) {
     return (
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
