@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { NavButton } from "./nav-button";
 import { useState } from "react";
 import { useMedia } from "react-use";
-import { Sheet, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 const routes = [
@@ -38,6 +38,7 @@ const Navigation = () => {
     router.push(href);
     setIsOpen(false);
   };
+  console.log(isMobile);
   if (isMobile) {
     return (
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -50,6 +51,17 @@ const Navigation = () => {
             <Menu className="h-4 w-4" />
           </Button>
         </SheetTrigger>
+        <SheetContent side="left" className="px-2">
+          <nav className="flex flex-col gap-y-2 pt-6">
+            {routes.map((route) => (
+              <Button
+                variant={route.href === pathName ? "secondary" : "ghost"}
+                key={route.href}
+                onClick={() => onClick(route.href)}
+              ></Button>
+            ))}
+          </nav>
+        </SheetContent>
       </Sheet>
     );
   }
