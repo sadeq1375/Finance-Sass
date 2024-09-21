@@ -33,7 +33,8 @@ const Navigation = () => {
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const isMobile = useMedia("(max-with:1024px)", false);
+  const isMobile = useMedia("(max-width:1024px)", false);
+
   const onClick = (href: string) => {
     router.push(href);
     setIsOpen(false);
@@ -58,7 +59,10 @@ const Navigation = () => {
                 variant={route.href === pathName ? "secondary" : "ghost"}
                 key={route.href}
                 onClick={() => onClick(route.href)}
-              ></Button>
+                className="w-full justify-start"
+              >
+                {route.label}
+              </Button>
             ))}
           </nav>
         </SheetContent>
