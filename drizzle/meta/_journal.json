@@ -15,6 +15,13 @@
       "when": 1727087033043,
       "tag": "0001_lazy_bucky",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1728281185109,
+      "tag": "0002_secret_steel_serpent",
+      "breakpoints": true
     }
   ]
 }
