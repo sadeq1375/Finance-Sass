@@ -5,14 +5,14 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { AccountForm } from "./account-form";
+import { AccountForm } from "./transaction-form";
 import { insertAccountsSchema } from "@/db/schema";
 import { z } from "zod";
 import { useOpenAccount } from "../hooks/use-open-account";
-import { useGetAccount } from "../api/use-get-account";
+import { useGetAccount } from "../api/use-get-transaction";
 import { Loader2 } from "lucide-react";
-import { useEditAccount } from "../api/use-edit-account";
-import { useDeleteAccount } from "../api/use-delete-account";
+import { useEditAccount } from "../api/use-edit-transaction";
+import { useDeleteAccount } from "../api/use-delete-transaction";
 import { useConfirm } from "@/hooks/use-confirm";
 const formSchema = insertAccountsSchema.pick({
   name: true,
