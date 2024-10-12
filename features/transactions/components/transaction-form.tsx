@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { insertTransActionSchema } from "@/db/schema";
+import { Select } from "@/components/select";
+import { DatePicker } from "@/components/date-picker";
 
 const formSchema = z.object({
   date: z.coerce.date(),
@@ -57,7 +59,8 @@ export const TransactionForm = ({
     defaultValues: defaultValues,
   });
   const handleSubmit = (values: FormValues) => {
-    onSubmit(values);
+    console.log(values);
+    // onSubmit(values);
   };
   const handleDelete = () => {
     onDelete?.();
@@ -69,16 +72,53 @@ export const TransactionForm = ({
         className="space-y-4 pt-4"
       >
         <FormField
-          name="name"
+          name="date"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
+                <DatePicker
+                  value={field.value}
+                  onChange={field.onChange}
                   disabled={disabled}
-                  placeholder="e.g. Cash,Bank,Credit Card"
-                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="accountId"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Account</FormLabel>
+              <FormControl>
+                <Select
+                  placeHolder="select an account"
+                  options={accountOptions}
+                  onCreate={onCreateAccount}
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="categoryId"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <FormControl>
+                <Select
+                  placeHolder="Select a Category"
+                  options={categoryOptions}
+                  onCreate={onCreateCategory}
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
                 />
               </FormControl>
             </FormItem>
