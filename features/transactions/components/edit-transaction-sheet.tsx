@@ -5,30 +5,30 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { AccountForm } from "./transaction-form";
+
 import { insertAccountsSchema } from "@/db/schema";
 import { z } from "zod";
-import { useOpenAccount } from "../hooks/use-open-account";
-import { useGetAccount } from "../api/use-get-transaction";
 import { Loader2 } from "lucide-react";
-import { useEditAccount } from "../api/use-edit-transaction";
-import { useDeleteAccount } from "../api/use-delete-transaction";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useGetTransaction } from "../api/use-get-transaction";
+import { useEditTransaction } from "../api/use-edit-transaction";
+import { useDeleteTransaction } from "../api/use-delete-transaction";
+import { useOpenTransaction } from "../hooks/use-open-transaction";
 const formSchema = insertAccountsSchema.pick({
   name: true,
 });
 type FormValues = z.input<typeof formSchema>;
-export const EditAccountSheet = () => {
-  const { isOpen, onClose, id } = useOpenAccount();
+export const EditTransactionSheet = () => {
+  const { isOpen, onClose, id } = useOpenTransaction();
   const [ConfirmDialog, confirm] = useConfirm(
     "are you sure?",
     "You are about to delete this account"
   );
-  const accountQuery = useGetAccount(id);
-  const editMutation = useEditAccount(id);
-  const deleteMutation = useDeleteAccount(id);
+  const transactionQuery = useGetTransaction(id);
+  const editMutation = useEditTransaction(id);
+  const deleteMutation = useDeleteTransaction(id);
   const isPending = editMutation.isPending || deleteMutation.isPending;
-  const isLoading = accountQuery.isLoading;
+  const isLoading = transactionQuery.isLoading;
   const onSubmit = (values: FormValues) => {
     editMutation.mutate(values, {
       onSuccess: () => {
@@ -46,8 +46,16 @@ export const EditAccountSheet = () => {
       });
     }
   };
-  const defaultValues = accountQuery.data
-    ? { name: accountQuery.data.name }
+  const defaultValues = transactionQuery.data
+    ? {
+        accountId: transactionQuery.data.accountId,
+        categoryId: transactionQuery.data.categoryId,
+        amoount: transactionQuery.data.amount.toString(),
+        date: transactionQuery.data.date
+          ? new Date(transactionQuery.data.date)
+          : new Date(),
+        payee: transactionQuery.data.payee,
+      }
     : { name: "" };
   return (
     <>

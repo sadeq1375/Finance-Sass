@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { AccountColumn } from "./account-column";
+import { CategoryColumn } from "./category-column";
 
 export type ResponseType = InferResponseType<
   typeof client.api.transactions.$get,
@@ -71,7 +72,13 @@ export const columns: ColumnDef<ResponseType>[] = [
       );
     },
     cell: ({ row }) => {
-      return <span>{row.original.category}</span>;
+      return (
+        <CategoryColumn
+          id={row.original.id}
+          category={row.original.category}
+          categoryId={row.original.categoryId}
+        />
+      );
     },
   },
   {
