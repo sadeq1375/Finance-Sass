@@ -1,5 +1,9 @@
-import { Select } from "@/components/select";
-import { SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { SelectTrigger } from "@radix-ui/react-select";
 
